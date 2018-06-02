@@ -1,17 +1,13 @@
 package com.woocation.auth.dashboard.controller;
 
-import java.io.IOException;
-
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.woocation.auth.dashboard.exception.AuthenticationDashboardException;
 import com.woocation.auth.dashboard.model.Client;
 import com.woocation.auth.dashboard.service.ClientService;
@@ -24,14 +20,12 @@ public class ClientController {
 	private ClientService clientService;
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public Client addClient(@RequestBody Client client)
-			throws JsonGenerationException, JsonMappingException, IOException, JSONException {
+	public Client addClient(@RequestBody Client client) {
 		return clientService.addClient(client);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.PUT)
-	public Client updateClient(@RequestBody Client client)
-			throws JsonGenerationException, JsonMappingException, IOException {
+	public Client updateClient(@RequestBody Client client) {
 		return clientService.updateClient(client);
 	}
 
@@ -45,8 +39,7 @@ public class ClientController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public Client getClient(String clientId)
-			throws JsonParseException, com.fasterxml.jackson.databind.JsonMappingException, IOException {
+	public Client getClient(@RequestParam String clientId) {
 		return clientService.getClient(clientId);
 	}
 }

@@ -2,15 +2,11 @@ package com.woocation.auth.dashboard.service;
 
 import java.io.IOException;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.woocation.auth.dashboard.exception.AuthenticationDashboardException;
 import com.woocation.auth.dashboard.model.Client;
@@ -23,8 +19,7 @@ public class ClientService {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
-	public Client addClient(Client client)
-			throws JsonGenerationException, JsonMappingException, IOException, JSONException {
+	public Client addClient(Client client) {
 
 		String clientTemp = stringRedisTemplate.opsForValue().get(OAUTH_CLIENT_KEY + client.getClient_id());
 
@@ -43,8 +38,7 @@ public class ClientService {
 		return stringRedisTemplate.keys(OAUTH_CLIENT_KEY + "*").toArray();
 	}
 
-	public Client getClient(String clientId)
-			throws JsonParseException, com.fasterxml.jackson.databind.JsonMappingException, IOException {
+	public Client getClient(String clientId) {
 		String client = stringRedisTemplate.opsForValue().get(OAUTH_CLIENT_KEY + clientId);
 		if (client == null) {
 			throw new AuthenticationDashboardException("No Client [" + clientId + "] exists");
@@ -52,7 +46,7 @@ public class ClientService {
 		return convertStringToClient(client);
 	}
 
-	public Client updateClient(Client client) throws JsonGenerationException, JsonMappingException, IOException {
+	public Client updateClient(Client client) {
 		String clientString = stringRedisTemplate.opsForValue().get(OAUTH_CLIENT_KEY + client.getClient_id());
 
 		Client tempClient = convertStringToClient(clientString);
@@ -88,15 +82,21 @@ public class ClientService {
 		return tempClient;
 	}
 
-	private String convertObjectToString(Client client)
-			throws JsonGenerationException, JsonMappingException, IOException {
+	private String convertObjectToString(Client client) {
 		org.codehaus.jackson.map.ObjectMapper obejctMapper = new org.codehaus.jackson.map.ObjectMapper();
-		return obejctMapper.writeValueAsString(client);
+		try {
+			return obejctMapper.writeValueAsString(client);
+		} catch (IOException e) {
+			throw new AuthenticationDashboardException("Bad Request parsing error");
+		}
 	}
 
-	private Client convertStringToClient(String clientValue)
-			throws JsonParseException, com.fasterxml.jackson.databind.JsonMappingException, IOException {
+	private Client convertStringToClient(String clientValue) {
 		ObjectMapper objectMapper = new ObjectMapper();
-		return objectMapper.readValue(clientValue.getBytes(), Client.class);
+		try {
+			return objectMapper.readValue(clientValue.getBytes(), Client.class);
+		} catch (IOException e) {
+			throw new AuthenticationDashboardException("Bad Request parsing error");
+		}
 	}
 }
