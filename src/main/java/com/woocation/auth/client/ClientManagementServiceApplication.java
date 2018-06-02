@@ -9,10 +9,10 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class AuthenticationDashboardApplication {
+public class ClientManagementServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthenticationDashboardApplication.class, args);
+		SpringApplication.run(ClientManagementServiceApplication.class, args);
 	}
 
 	@Bean
@@ -20,22 +20,10 @@ public class AuthenticationDashboardApplication {
 		return new JedisConnectionFactory();
 	}
 
-/*	@Bean
-	RedisTemplate<String, Object> redisTemplate() {
-		final RedisTemplate<String, Object> template = new RedisTemplate<>();
-		template.setConnectionFactory(jedisConnectionFactory());
-		template.setKeySerializer(new StringRedisSerializer());
-		template.setHashValueSerializer(new GenericToStringSerializer<Object>(Object.class));
-		template.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
-		template.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));	
-		return template;
-	}*/
-	
-	
 	@Bean
 	public StringRedisTemplate stringRedisTemplate() {
 		StringRedisTemplate stringRedisTemplate = new StringRedisTemplate(jedisConnectionFactory());
 		stringRedisTemplate.setEnableTransactionSupport(true);
 		return stringRedisTemplate;
-	}	
+	}
 }
