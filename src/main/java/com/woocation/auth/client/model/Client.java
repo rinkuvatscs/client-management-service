@@ -1,4 +1,4 @@
-package com.woocation.auth.dashboard.model;
+package com.woocation.auth.client.model;
 
 import java.io.Serializable;
 

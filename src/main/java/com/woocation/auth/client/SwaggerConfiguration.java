@@ -1,4 +1,4 @@
-package com.woocation.auth.dashboard;
+package com.woocation.auth.client;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

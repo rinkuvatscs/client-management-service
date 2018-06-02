@@ -1,4 +1,4 @@
-package com.woocation.auth.dashboard.controller;
+package com.woocation.auth.client.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.woocation.auth.dashboard.exception.AuthenticationDashboardException;
-import com.woocation.auth.dashboard.model.Client;
-import com.woocation.auth.dashboard.service.ClientService;
+import com.woocation.auth.client.exception.AuthenticationDashboardException;
+import com.woocation.auth.client.model.Client;
+import com.woocation.auth.client.service.ClientService;
 
 @RestController
 @RequestMapping(value = "/clients/v1")

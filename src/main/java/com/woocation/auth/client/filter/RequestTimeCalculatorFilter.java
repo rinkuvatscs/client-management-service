@@ -1,4 +1,4 @@
-package com.woocation.auth.dashboard.filter;
+package com.woocation.auth.client.filter;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package com.woocation.auth.dashboard.exception;
+package com.woocation.auth.client.exception;
 
 public class AuthenticationDashboardException extends RuntimeException{
 

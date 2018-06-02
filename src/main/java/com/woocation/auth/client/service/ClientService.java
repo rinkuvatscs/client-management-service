@@ -1,4 +1,4 @@
-package com.woocation.auth.dashboard.service;
+package com.woocation.auth.client.service;
 
 import java.io.IOException;
 
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.woocation.auth.dashboard.exception.AuthenticationDashboardException;
-import com.woocation.auth.dashboard.model.Client;
+import com.woocation.auth.client.exception.AuthenticationDashboardException;
+import com.woocation.auth.client.model.Client;
 
 @Service
 public class ClientService {
